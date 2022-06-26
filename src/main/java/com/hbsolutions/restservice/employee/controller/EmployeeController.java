@@ -1,0 +1,42 @@
+package com.hbsolutions.restservice.employee.controller;
+
+import com.hbsolutions.restservice.employee.model.Employee;
+import com.hbsolutions.restservice.employee.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api")
+public class EmployeeController {
+    @Autowired
+    EmployeeService empService;
+
+    @RequestMapping(value="/employees", method= RequestMethod.POST)
+    public Employee createEmployee(@RequestBody Employee emp) {
+        return empService.createEmployee(emp);
+    }
+
+    @RequestMapping(value="/employees", method=RequestMethod.GET)
+    public List<Employee> readEmployees() {
+        return Arrays.asList(empService.getEmployees());
+    }
+
+    @RequestMapping(value="/employees/{empId}", method=RequestMethod.GET)
+    public List<Employee> readEmployeeByID(@PathVariable(value="empId") Long id) {
+        return Arrays.asList(empService.getEmployeeById(id));
+    }
+
+    @RequestMapping(value="/employees/{empId}", method=RequestMethod.PUT)
+    public Employee updateEmployees(@PathVariable(value = "empId") Long id, @RequestBody Employee empDetails) {
+        return empService.updateEmployee(id, empDetails);
+    }
+
+    @RequestMapping(value="/employees/{empId}", method=RequestMethod.DELETE)
+    public void deleteEmployees(@PathVariable(value = "empId") Long id) {
+        empService.deleteEmployee(id);
+    }
+
+}
