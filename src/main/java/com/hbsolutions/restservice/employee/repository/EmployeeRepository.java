@@ -9,12 +9,13 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Repository
+//TODO: DBChange to @Repository
 @Service
 public class EmployeeRepository {
 
     List<Employee> employeeList;
 
+    //TODO: DBChange make DBconnection
     @PostConstruct
     public void initializeEmployees(){
         employeeList = new ArrayList<Employee>();
@@ -24,14 +25,17 @@ public class EmployeeRepository {
         employeeList.add(employee1);
         employeeList.add(employee2);
         employeeList.add(employee3);
+        //TODO: DBChange Initialize connection information
     }
 
+    //TODO: DBChange use database to save employee information
     public Employee save(Employee employee){
         Long lastID = employeeList.get(employeeList.size()-1).getId()+1;
         employee.setId(lastID);
         employeeList.add(employee);
         return employee;
     }
+
 
     public Employee update(Employee employee){
         Employee emp = findById(employee.getId());
